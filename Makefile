@@ -1,14 +1,14 @@
 image:
-	docker build -t davd/docker-ddns:latest .
+	docker build -t neu-ro-it/docker-ddns:latest .
 
 console:
-	docker run -it -p 8080:8080 -p 53:53 -p 53:53/udp --rm davd/docker-ddns:latest bash
+	docker run -it -p 8080:8080 -p 53:53 -p 53:53/udp --rm neu-ro-it/docker-ddns:latest bash
 
 devconsole:
 	docker run -it --rm -v ${PWD}/rest-api:/usr/src/app -w /usr/src/app golang:1.8.5 bash
 
 server_test:
-	docker run -it -p 8080:8080 -p 53:53 -p 53:53/udp --env-file envfile --rm davd/docker-ddns:latest
+	docker run -it -p 8080:8080 -p 53:53 -p 53:53/udp --env-file envfile --rm neu-ro-it/docker-ddns:latest
 
 unit_tests:
 	docker run -it --rm -v ${PWD}/rest-api:/go/src/dyndns -w /go/src/dyndns golang:1.8.5 /bin/bash -c "go get && go test -v"
@@ -37,4 +37,4 @@ api_test_recursion:
 	dig @localhost google.com
 
 deploy: image
-	docker run -it -d -p 8080:8080 -p 53:53 -p 53:53/udp --env-file envfile --name=dyndns davd/docker-ddns:latest
+	docker run -it -d -p 8080:8080 -p 53:53 -p 53:53/udp --env-file envfile --name=dyndns neu-ro-it/docker-ddns:latest
